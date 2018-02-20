@@ -7,20 +7,29 @@
 
 #define MIN PID 300;
 #define MAX PID 5000;
-#define int *bitmap;
+int *bitmap;
 
 int allocate_map(void) {
+  printf("Allocating array for pids...\t");
+
   bitmap = malloc(sizeof(int) * 4700);
-  for (int i = 0; i < 4700; ++i) {
+  int i;
+  for (i = 0; i < 4700; ++i) {
     bitmap[i] = 0;
   }
-  return 1;
+  if (bitmap) {
+    return 1;
+  }
+  else {
+    fprintf(stderr, "Array allocation failed.\n");
+    return -1;
+  }
 }
 
 int allocate_pid(void) {
   int i;
   for (i = 0; i < 4700; ++i) {
-    if (bitmap[i] != 0 {
+    if (bitmap[i] == 0) {
       bitmap[i] = 1;
       return i + 300;
     }
@@ -31,10 +40,7 @@ int allocate_pid(void) {
 void release_pid(int pid) {
   bitmap[(pid-300)] = 0;
 }
-void wait
-int main(int argc, char **argv) {
-  for (int i = 0; i < 100; ++i) {
 
-    pthread_create(&allocate_pid, NULL, &average, &avg);
-  }
+int main(int argc, char **argv) {
+
 }
